@@ -40,6 +40,8 @@
                            Style="{StaticResource MutedText}" Margin="0,8,0,5" />
                 <TextBlock Text="Copyright © 2022 pizzaboxer · Copyright © 2026 Eclipsed Client contributors"
                            Style="{StaticResource MutedText}" Margin="0,0,0,13" />
+                <TextBlock Text="Development assistance by ChatGPT (OpenAI)."
+                           Style="{StaticResource MutedText}" Margin="0,0,0,13" />
                 <WrapPanel>
                     <Button Content="Licenses &amp; notices" Command="{Binding Notices}" Margin="0,0,8,0" />
                     <Button Content="GitHub releases" Command="{Binding Releases}" Margin="0,0,8,0" />

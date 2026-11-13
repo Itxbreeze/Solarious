@@ -42,3 +42,7 @@ The script produces `dist/EclipsedClient/` and `dist/EclipsedClient-Portable.zip
 ## License
 
 Eclipsed Client is an independent [MIT-licensed](LICENSE) fork of [Bloxstrap](https://github.com/bloxstraplabs/bloxstrap), originally created by pizzaboxer. Eclipsed Client is unaffiliated with Roblox Corporation, Bloxstrap Labs, and Moonsworth. See [third-party notices](THIRD-PARTY-NOTICES) for dependency attribution.
+
+## Credits
+
+Development assistance by [ChatGPT (OpenAI)](https://chatgpt.com/).
