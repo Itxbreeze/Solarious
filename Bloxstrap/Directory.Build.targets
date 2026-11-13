@@ -1,0 +1,5 @@
+<Project>
+  <Target Name="UseEclipsedClientSolution" BeforeTargets="PrepareForBuild">
+    <Error Text="This is the archived upstream project. Build EclipsedClient.slnx for the supported Eclipsed Client launcher." />
+  </Target>
+</Project>

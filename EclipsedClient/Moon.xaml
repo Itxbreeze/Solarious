@@ -1,0 +1,12 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DrawingImage x:Key="EclipseMoon">
+        <DrawingImage.Drawing>
+            <GeometryDrawing Brush="#E8E5FF">
+                <GeometryDrawing.Geometry>
+                    <PathGeometry Figures="M 511,232 A 256,256 0 1 0 497,344 A 193,193 0 1 1 511,232 Z" />
+                </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+</ResourceDictionary>

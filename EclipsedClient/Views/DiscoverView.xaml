@@ -1,0 +1,86 @@
+<UserControl x:Class="EclipsedClient.Views.DiscoverView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel Margin="28,25,28,28">
+        <DockPanel Margin="0,0,13,12">
+            <Button DockPanel.Dock="Right" Content="&#xE72C;" FontFamily="Segoe MDL2 Assets" Command="{Binding Charts.Refresh}"
+                    ToolTip="Refresh Top Charts" AutomationProperties.Name="Refresh Top Charts" VerticalAlignment="Center" />
+            <StackPanel>
+                <TextBlock Text="Top Charts" Style="{StaticResource Heading}" />
+                <TextBlock Text="{Binding Charts.State}" Style="{StaticResource MutedText}" />
+            </StackPanel>
+        </DockPanel>
+        <ItemsControl ItemsSource="{Binding Charts.Games}" Margin="0,0,-12,19">
+            <ItemsControl.ItemsPanel><ItemsPanelTemplate><UniformGrid Columns="3" /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate><DataTemplate>
+                <Border Style="{StaticResource LibraryTile}" Margin="0,2,12,0" Padding="8">
+                    <StackPanel>
+                        <Border Height="139" CornerRadius="8" Background="{StaticResource Spotlight}">
+                            <Border CornerRadius="8">
+                                <Border.Background><ImageBrush ImageSource="{Binding Icon}" Stretch="UniformToFill" Opacity=".78" /></Border.Background>
+                            </Border>
+                        </Border>
+                        <TextBlock Text="{Binding Title}" FontWeight="SemiBold" FontSize="15" Margin="3,9,3,3"
+                                   TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" ToolTip="{Binding Title}" />
+                        <DockPanel Margin="3,3,3,1">
+                            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                                <Button Content="Play" Style="{StaticResource Primary}" Padding="9,4"
+                                        Command="{Binding DataContext.Charts.Play, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" />
+                                <Button Content="+" Margin="5,0,0,0" Padding="8,4" ToolTip="Save to library" AutomationProperties.Name="Save to library"
+                                        Command="{Binding DataContext.Charts.Pin, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" />
+                            </StackPanel>
+                            <TextBlock Text="{Binding Players}" Style="{StaticResource MutedText}" FontSize="11" VerticalAlignment="Center" Margin="0,0,5,0" />
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+            </DataTemplate></ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <Border Style="{StaticResource Card}" DataContext="{Binding Home}">
+            <StackPanel>
+                <TextBlock Text="Friends" Style="{StaticResource Section}" Margin="0,0,0,13" />
+                <DockPanel Margin="0,0,0,13">
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Margin="8,0,0,0">
+                        <Button Content="Find profile" Command="{Binding Lookup}" Margin="0,0,6,0" />
+                        <Button Content="Bookmark profile" Command="{Binding BookmarkProfile}" Margin="0,0,6,0" />
+                        <Button Content="&#xE72C;" FontFamily="Segoe MDL2 Assets" Command="{Binding LoadAvatars}"
+                                ToolTip="Load avatars" AutomationProperties.Name="Load friend avatars" />
+                    </StackPanel>
+                    <Grid>
+                        <TextBox x:Name="ProfileQuery" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" MaxLength="20"
+                                 AutomationProperties.Name="Public Roblox username">
+                            <TextBox.InputBindings><KeyBinding Key="Enter" Command="{Binding Lookup}" /></TextBox.InputBindings>
+                        </TextBox>
+                        <TextBlock Text="Roblox username" IsHitTestVisible="False" Foreground="{StaticResource Muted}" Margin="12,0,0,0" VerticalAlignment="Center">
+                            <TextBlock.Style><Style TargetType="TextBlock"><Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers><DataTrigger Binding="{Binding Text, ElementName=ProfileQuery}" Value=""><Setter Property="Visibility" Value="Visible" /></DataTrigger></Style.Triggers>
+                            </Style></TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                </DockPanel>
+                <TextBlock Text="Find a Roblox profile to bookmark it." Visibility="{Binding EmptyFriends}" Style="{StaticResource MutedText}" />
+                <ItemsControl ItemsSource="{Binding Friends}">
+                    <ItemsControl.ItemTemplate><DataTemplate>
+                        <Border Style="{StaticResource SoftCard}" Padding="9" Margin="0,0,0,6">
+                            <DockPanel>
+                                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Button Content="Profile" Margin="0,0,6,0" CommandParameter="{Binding}"
+                                            Command="{Binding DataContext.Home.Profile, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                                    <Button Content="Join" Margin="0,0,6,0" CommandParameter="{Binding}"
+                                            Command="{Binding DataContext.Home.Join, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                                    <Button Content="&#xE74D;" FontFamily="Segoe MDL2 Assets" ToolTip="Remove bookmark" AutomationProperties.Name="Remove bookmark"
+                                            CommandParameter="{Binding}" Command="{Binding DataContext.Home.RemoveFriend, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                                </StackPanel>
+                                <Image DockPanel.Dock="Left" Source="{Binding Avatar}" Width="35" Height="35" Margin="0,0,9,0" />
+                                <StackPanel VerticalAlignment="Center">
+                                    <Button Content="{Binding Name}" HorizontalAlignment="Left" Padding="7,4"
+                                            Command="{Binding DataContext.Home.CheckPresence, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            CommandParameter="{Binding}" ToolTip="Check public Roblox presence" />
+                                    <TextBlock Text="{Binding Handle}" Style="{StaticResource MutedText}" />
+                                    <TextBlock Text="{Binding Presence}" Style="{StaticResource MutedText}" />
+                                </StackPanel>
+                            </DockPanel>
+                        </Border>
+                    </DataTemplate></ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</UserControl>

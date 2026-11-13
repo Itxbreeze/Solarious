@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>EclipsedClient</AssemblyName>
+    <Product>Eclipsed Client</Product>
+    <Description>Independent Windows launcher for the official Roblox player</Description>
+    <Copyright>Copyright © 2022 pizzaboxer and © 2026 Eclipsed Client contributors</Copyright>
+    <ApplicationIcon>..\Images\assets\EclipsedClient.ico</ApplicationIcon>
+    <Version>1.0.0</Version>
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Resource Include="..\Images\assets\EclipsedClient.ico" Link="Assets\EclipsedClient.ico" />
+    <Resource Include="..\Images\assets\eclipse-moon-textured.png" Link="Assets\eclipse-moon-textured.png" />
+    <Resource Include="..\Images\assets\earthrise.jpg" Link="Assets\earthrise.jpg" />
+    <Resource Include="..\Images\assets\solar-corona.jpg" Link="Assets\solar-corona.jpg" />
+    <Resource Include="..\Images\assets\hadley-apennine.jpg" Link="Assets\hadley-apennine.jpg" />
+    <Resource Include="..\LICENSE" Link="Assets\LICENSE" />
+    <Resource Include="..\THIRD-PARTY-NOTICES" Link="Assets\THIRD-PARTY-NOTICES" />
+    <Using Remove="System.Windows.Forms" />
+    <Using Remove="System.Drawing" />
+    <Resource Include="Notices\*.txt" />
+    <PackageReference Include="DiscordRichPresence" Version="1.2.1.24" />
+  </ItemGroup>
+</Project>

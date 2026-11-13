@@ -1,0 +1,50 @@
+<UserControl x:Class="EclipsedClient.Views.DiscordView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel Margin="28,25,28,28">
+        <TextBlock Text="Discord presence" Style="{StaticResource Heading}" />
+        <TextBlock Text="Choose what Discord displays while you play Roblox." Style="{StaticResource MutedText}" Margin="0,0,0,21" />
+        <Grid>
+            <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+            <StackPanel Margin="0,0,15,0">
+                <Border Style="{StaticResource Card}" Background="{StaticResource Spotlight}">
+                    <StackPanel>
+                        <TextBlock Text="{Binding PreviewStatus}" Style="{StaticResource Kicker}" />
+                        <DockPanel Margin="0,18,0,0">
+                            <Border DockPanel.Dock="Left" Width="57" Height="57" CornerRadius="14" Background="#403153" Margin="0,0,13,0">
+                                <Image Source="{StaticResource EclipseMoon}" Width="32" Height="32" />
+                            </Border>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Text="Eclipsed Client" FontWeight="SemiBold" FontSize="17" />
+                                <TextBlock Text="{Binding PreviewTop}" Margin="0,3,0,0" />
+                                <TextBlock Text="{Binding PreviewBottom}" />
+                                <TextBlock Text="{Binding PreviewTimer}" Foreground="{StaticResource Success}" />
+                            </StackPanel>
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource Card}" Margin="0,15,0,0">
+                    <StackPanel>
+                        <TextBlock Text="Visibility" Style="{StaticResource Section}" Margin="0,0,0,13" />
+                        <CheckBox Content="Enable Discord Rich Presence" IsChecked="{Binding Enabled}" />
+                        <CheckBox Content="Hide current game" IsChecked="{Binding HideGame}" />
+                        <CheckBox Content="Show elapsed timer" IsChecked="{Binding ShowTimer}" Margin="0" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+            <Border Grid.Column="1" Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="Customize status" Style="{StaticResource Section}" />
+                    <TextBlock Text="Discord application ID" Style="{StaticResource MutedText}" Margin="0,9,0,3" />
+                    <TextBox Text="{Binding ApplicationId, UpdateSourceTrigger=PropertyChanged}" MaxLength="20" AutomationProperties.Name="Discord application ID" />
+                    <TextBlock Text="Username (optional)" Style="{StaticResource MutedText}" Margin="0,9,0,3" />
+                    <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" MaxLength="20" AutomationProperties.Name="Username (optional)" />
+                    <TextBlock Text="Top status text" Style="{StaticResource MutedText}" Margin="0,9,0,3" />
+                    <TextBox Text="{Binding Top, UpdateSourceTrigger=PropertyChanged}" MaxLength="128" AutomationProperties.Name="Top status text" />
+                    <TextBlock Text="Bottom status text" Style="{StaticResource MutedText}" Margin="0,9,0,3" />
+                    <TextBox Text="{Binding Bottom, UpdateSourceTrigger=PropertyChanged}" MaxLength="128" AutomationProperties.Name="Bottom status text" />
+                    <TextBlock Text="{}{game}   {username}   {elapsed}" Foreground="{StaticResource Lavender}" Margin="0,9,0,13" />
+                    <Button Content="Save settings" Command="{Binding Save}" Style="{StaticResource Primary}" HorizontalAlignment="Right" />
+                </StackPanel>
+            </Border>
+        </Grid>
+    </StackPanel>
+</UserControl>
