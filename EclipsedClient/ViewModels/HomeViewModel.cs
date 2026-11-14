@@ -56,7 +56,7 @@ internal sealed class HomeViewModel : ViewModel, IDisposable
         set { _search = value; RefreshGames(); }
     }
     private readonly Discovery _discovery;
-    public PlaceEntryViewModel Entry { get; }
+
     public ICommand Add { get; }
     public ICommand Scan { get; }
     public ICommand Lookup { get; }
@@ -76,7 +76,7 @@ internal sealed class HomeViewModel : ViewModel, IDisposable
     internal HomeViewModel(LauncherViewModel shell, Discovery discovery, CancellationToken lifetime)
     {
         _discovery = discovery;
-        Entry = new(shell, discovery);
+
         Add = shell.Action(_ => ShowEditor(shell, null));
         Refresh();
         Scan = shell.Async(async _ =>
@@ -159,7 +159,7 @@ internal sealed class HomeViewModel : ViewModel, IDisposable
     }
 
     private static bool Confirm(string message) => MessageBox.Show(Application.Current.MainWindow, message,
-        "Eclipsed Client", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.Yes;
+        "Solarious", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.Yes;
 
     private void ShowEditor(LauncherViewModel shell, Favorite? original)
     {
@@ -189,7 +189,7 @@ internal sealed class HomeViewModel : ViewModel, IDisposable
     internal void Pin(Experience game)
     {
         if (_data.Favorites.Any(item => item.PlaceId == game.PlaceId)) return;
-        Save(_data with { Favorites = [.. _data.Favorites, new(game.PlaceId, game.Name, "", "#7C3AED", game.Icon)] });
+        Save(_data with { Favorites = [.. _data.Favorites, new(game.PlaceId, game.Name, "", "#CFA465", game.Icon)] });
     }
 
     private void RefreshGames()
@@ -238,7 +238,7 @@ internal sealed class HomeViewModel : ViewModel, IDisposable
 
     public void Dispose()
     {
-        Entry.Dispose();
+
         _api.Dispose();
     }
 }

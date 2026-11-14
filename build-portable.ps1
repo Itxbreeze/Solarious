@@ -8,11 +8,11 @@ param(
 $ErrorActionPreference = 'Stop'
 $project = Join-Path $PSScriptRoot 'EclipsedClient/EclipsedClient.csproj'
 $dist = Join-Path $PSScriptRoot 'dist'
-$folder = Join-Path $dist 'EclipsedClient'
-$archive = Join-Path $dist 'EclipsedClient-Portable.zip'
+$folder = Join-Path $dist 'Solarious'
+$archive = Join-Path $dist 'Solarious-Portable.zip'
 $stage = Join-Path $dist ('.portable-' + [guid]::NewGuid().ToString('N'))
-$stagedFolder = Join-Path $stage 'EclipsedClient'
-$stagedArchive = Join-Path $stage 'EclipsedClient-Portable.zip'
+$stagedFolder = Join-Path $stage 'Solarious'
+$stagedArchive = Join-Path $stage 'Solarious-Portable.zip'
 
 foreach ($path in @($dist, $folder, $archive)) {
     $entry = Get-Item -LiteralPath $path -Force -ErrorAction SilentlyContinue
@@ -26,7 +26,7 @@ try {
     dotnet publish $project -c Release -r win-x64 --self-contained true -p:PublishSingleFile=false "-p:Version=$Version" -o $stagedFolder
     if ($LASTEXITCODE -ne 0) { throw "Publish failed with exit code $LASTEXITCODE." }
 
-    foreach ($name in @('EclipsedClient.exe', 'EclipsedClient.dll', 'hostfxr.dll', 'coreclr.dll')) {
+    foreach ($name in @('Solarious.exe', 'Solarious.dll', 'hostfxr.dll', 'coreclr.dll')) {
         if (!(Test-Path -LiteralPath (Join-Path $stagedFolder $name) -PathType Leaf)) {
             throw "The portable publish is missing $name."
         }
@@ -43,7 +43,7 @@ try {
     $distRoot = (Resolve-Path -LiteralPath $dist).Path.TrimEnd('\') + '\'
     if (Test-Path -LiteralPath $folder) {
         $resolvedFolder = (Resolve-Path -LiteralPath $folder).Path
-        if (!$resolvedFolder.Equals($distRoot + 'EclipsedClient', [StringComparison]::OrdinalIgnoreCase)) {
+        if (!$resolvedFolder.Equals($distRoot + 'Solarious', [StringComparison]::OrdinalIgnoreCase)) {
             throw "Unexpected output folder $resolvedFolder."
         }
         Remove-Item -LiteralPath $resolvedFolder -Recurse -Force

@@ -18,7 +18,7 @@ internal sealed class DiscordViewModel : ViewModel, IDisposable
     public bool Enabled { get => _draft.Enabled; set => Edit(_draft with { Enabled = value }); }
     public bool HideGame { get => _draft.HideGame; set => Edit(_draft with { HideGame = value }); }
     public bool ShowTimer { get => _draft.ShowTimer; set => Edit(_draft with { ShowTimer = value }); }
-    public string PreviewTop => DiscordPresence.Render(Top, _draft, _game, _elapsed) ?? "Playing via Eclipsed Client";
+    public string PreviewTop => DiscordPresence.Render(Top, _draft, _game, _elapsed) ?? "Playing via Solarious";
     public string? PreviewBottom => DiscordPresence.Render(Bottom, _draft, _game, _elapsed);
     public string PreviewTimer => ShowTimer ? HomeViewModel.Elapsed(_elapsed) + " elapsed" : "";
     public string PreviewStatus => !Enabled ? "Preview · sharing off" :

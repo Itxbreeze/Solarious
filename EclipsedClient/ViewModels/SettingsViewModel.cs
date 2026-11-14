@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
@@ -10,15 +12,15 @@ internal sealed class SettingsViewModel : ViewModel
     private LauncherPreferences _preferences = LocalData.Load<LauncherPreferences>("launcher.json");
     private static readonly (string Id, string Title, string Credit)[] Backdrops =
     [
-        ("earthrise", "Apollo Earthrise", "NASA / Apollo 11"),
         ("solar-corona", "Solar Eclipse Corona", "NASA / Keegan Barber"),
+        ("earthrise", "Apollo Earthrise", "NASA / Apollo 11"),
         ("hadley-apennine", "Lunar Surface", "NASA / Shawn Quinn")
     ];
 
     private int BackdropIndex => Math.Max(0, Array.FindIndex(Backdrops, backdrop => backdrop.Id == _preferences.Backdrop));
     public Uri BackdropImage => new($"pack://application:,,,/Assets/{Backdrops[BackdropIndex].Id}.jpg");
     public string BackdropTitle => Backdrops[BackdropIndex].Title;
-    public Rect BackdropCrop => BackdropIndex == 0 ? new Rect(0, 0, 1, .80) : new Rect(0, 0, 1, 1);
+    public Rect BackdropCrop => Backdrops[BackdropIndex].Id == "earthrise" ? new Rect(0, 0, 1, .80) : new Rect(0, 0, 1, 1);
     public string BackdropCredit => Backdrops[BackdropIndex].Credit;
     public ICommand NextBackdrop { get; }
     public ICommand PreviousBackdrop { get; }
@@ -69,10 +71,12 @@ internal sealed class SettingsViewModel : ViewModel
 
     private readonly LauncherViewModel _shell;
     public string Storage => LocalData.DirectoryPath;
-    public string ScreenshotsPath => Screenshots.Folder;
+    public IReadOnlyList<string> DataFiles => LocalData.Files;
+    public ICommand OpenData { get; }
+    public ICommand ClearData { get; }
     public bool Registered => ProtocolRegistration.IsRegistered;
-    public string Mode => Registered ? "Eclipsed Client handles roblox-player: links" : "Side-by-side mode";
-    public string Version => "Eclipsed Client " + Assembly.GetExecutingAssembly().GetName().Version?.ToString(3);
+    public string Mode => Registered ? "Solarious handles roblox-player: links" : "Side-by-side mode";
+    public string Version => "Solarious " + Assembly.GetExecutingAssembly().GetName().Version?.ToString(3);
     public ICommand Register { get; }
     public ICommand Restore { get; }
     public ICommand Releases { get; }
@@ -82,12 +86,27 @@ internal sealed class SettingsViewModel : ViewModel
     internal SettingsViewModel(LauncherViewModel shell)
     {
         _shell = shell;
+        OpenData = shell.Action(_ =>
+        {
+            Directory.CreateDirectory(Storage);
+            Process.Start(new ProcessStartInfo(Storage) { UseShellExecute = true });
+        });
+        ClearData = shell.Action(_ =>
+        {
+            if (MessageBox.Show(Application.Current.MainWindow,
+                "Clear saved games, bookmarks, playtime, settings, and cached charts? Solarious will close so you can reopen it with fresh settings. Screenshots and previous editions are kept.",
+                "Clear Solarious data", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No) != MessageBoxResult.Yes)
+                return;
+
+            LocalData.Clear();
+            Application.Current.Shutdown();
+        });
         NextBackdrop = shell.Action(_ => ChangeBackdrop(1));
         PreviousBackdrop = shell.Action(_ => ChangeBackdrop(-1));
         Register = shell.Action(_ =>
         {
             if (MessageBox.Show(Application.Current.MainWindow,
-                "Set this copy of Eclipsed Client as the per-user handler for roblox-player: links?",
+                "Set this copy of Solarious as the per-user handler for roblox-player: links?",
                 "Windows link handler", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes)
                 return;
             ProtocolRegistration.Register();
@@ -98,7 +117,7 @@ internal sealed class SettingsViewModel : ViewModel
             ProtocolRegistration.Restore();
             Notify(string.Empty);
         });
-        Releases = shell.Action(_ => OfficialLauncher.OpenWeb(new Uri("https://github.com/Itxbreeze/Eclipsed-Client-Solarious/releases")));
+        Releases = shell.Action(_ => OfficialLauncher.OpenWeb(new Uri("https://github.com/Itxbreeze/Solarious/releases")));
         Source = shell.Action(_ => OfficialLauncher.OpenWeb(new Uri("https://github.com/bloxstraplabs/bloxstrap")));
         Notices = shell.Action(_ =>
         {
@@ -112,7 +131,7 @@ internal sealed class SettingsViewModel : ViewModel
             };
             var dialog = new Window
             {
-                Owner = Application.Current.MainWindow, Content = text, Title = "Licenses and notices",
+                Owner = Application.Current.MainWindow, Content = text, Title = "Solarious — Licenses and notices",
                 WindowStartupLocation = WindowStartupLocation.CenterOwner, Width = 760, Height = 600,
                 ShowInTaskbar = false
             };

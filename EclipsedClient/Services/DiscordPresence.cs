@@ -31,7 +31,7 @@ internal sealed partial class DiscordPresence : IDisposable
         }
 
         TimeSpan elapsed = now > started.Value ? now - started.Value : TimeSpan.Zero;
-        string? details = Render(settings.TopText, settings, game, elapsed) ?? "Playing via Eclipsed Client";
+        string? details = Render(settings.TopText, settings, game, elapsed) ?? "Playing via Solarious";
         string? state = Render(settings.BottomText, settings, game, elapsed);
         DateTimeOffset? timestamp = settings.ShowTimer ? started : null;
         var next = (details, state, timestamp);

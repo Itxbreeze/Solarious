@@ -74,7 +74,7 @@ internal sealed class GalleryViewModel : ViewModel
             var scroll = new ScrollViewer { Content = image };
             var dialog = new Window
             {
-                Owner = Application.Current.MainWindow, Title = card.Name, Content = scroll,
+                Owner = Application.Current.MainWindow, Title = $"Solarious — {card.Name}", Content = scroll,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner, Width = 950, Height = 680,
                 Background = new SolidColorBrush(Color.FromRgb(11, 13, 18)), ShowInTaskbar = false
             };

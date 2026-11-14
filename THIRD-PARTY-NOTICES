@@ -10,7 +10,7 @@ Bloxstrap upstream source and this fork are covered by LICENSE. The pinned
 wpfui submodule includes its own license and third-party notices.
 
 Upstream Bloxstrap also incorporated code covered by the notice below.
-That code is absent from the Eclipsed Client executable.
+That code is absent from the Solarious executable.
 
 Copyright (c) 2015-present MaximumADHD
 

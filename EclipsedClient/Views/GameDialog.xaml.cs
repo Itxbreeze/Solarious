@@ -20,7 +20,7 @@ public partial class GameDialog : Window
         PlaceFields.Visibility = original is null ? Visibility.Visible : Visibility.Collapsed;
         GameTitle.Text = original?.Title ?? "";
         Notes.Text = original?.Notes ?? "";
-        AccentColor.Text = original?.Accent ?? "#7C3AED";
+        AccentColor.Text = original?.Accent ?? "#CFA465";
         _entry.PropertyChanged += (_, _) =>
         {
             if (string.IsNullOrWhiteSpace(GameTitle.Text) && _entry.Experience is { } game)
@@ -31,6 +31,28 @@ public partial class GameDialog : Window
             if (original is null) PlaceInput.Focus();
             else GameTitle.Focus();
         };
+    }
+
+    private void PasteLink(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            string input = Clipboard.ContainsText() ? Clipboard.GetText().Trim() : "";
+            if (!PlaceLink.TryParse(input, out _) && !OfficialLauncher.IsPlayerLink(input))
+            {
+                Validation.Text = "Copy a Roblox experience link or Place ID first.";
+                return;
+            }
+
+            Validation.Text = "";
+            PlaceInput.SetCurrentValue(System.Windows.Controls.TextBox.TextProperty, input);
+            PlaceInput.Focus();
+            PlaceInput.CaretIndex = PlaceInput.Text.Length;
+        }
+        catch (System.Runtime.InteropServices.ExternalException)
+        {
+            Validation.Text = "The clipboard is busy. Try again.";
+        }
     }
 
     private void Save(object sender, RoutedEventArgs e)

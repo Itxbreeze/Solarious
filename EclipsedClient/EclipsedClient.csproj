@@ -6,8 +6,9 @@
     <UseWindowsForms>true</UseWindowsForms>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <AssemblyName>EclipsedClient</AssemblyName>
-    <Product>Eclipsed Client Solarious</Product>
+    <AssemblyName>Solarious</AssemblyName>
+    <RootNamespace>EclipsedClient</RootNamespace>
+    <Product>Solarious</Product>
     <Description>Privacy-first Windows launcher for the official Roblox player</Description>
     <Copyright>Copyright © 2022 pizzaboxer and © 2026 Eclipsed Client contributors</Copyright>
     <ApplicationIcon>..\Images\assets\Solarious.ico</ApplicationIcon>

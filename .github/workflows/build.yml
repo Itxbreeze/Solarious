@@ -1,4 +1,4 @@
-name: Build Eclipsed Client
+name: Build Solarious
 
 on:
   pull_request:
@@ -31,8 +31,8 @@ jobs:
           ./build-portable.ps1 -Version $version
       - uses: actions/upload-artifact@v7
         with:
-          name: EclipsedClient-Portable
-          path: dist/EclipsedClient-Portable.zip
+          name: Solarious-Portable
+          path: dist/Solarious-Portable.zip
           if-no-files-found: error
 
   release:
@@ -44,7 +44,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v8
         with:
-          name: EclipsedClient-Portable
+          name: Solarious-Portable
       - name: Attach portable ZIP to GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -52,7 +52,7 @@ jobs:
           RELEASE_TAG: ${{ github.ref_name }}
         run: |
           if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
-            gh release upload "$RELEASE_TAG" EclipsedClient-Portable.zip --clobber
+            gh release upload "$RELEASE_TAG" Solarious-Portable.zip --clobber
           else
-            gh release create "$RELEASE_TAG" EclipsedClient-Portable.zip --verify-tag --generate-notes --prerelease=${{ contains(github.ref_name, '-') }}
+            gh release create "$RELEASE_TAG" Solarious-Portable.zip --verify-tag --generate-notes --prerelease=${{ contains(github.ref_name, '-') }}
           fi

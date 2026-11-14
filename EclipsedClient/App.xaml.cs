@@ -22,13 +22,14 @@ public partial class App : Application
             if (protocol is not null)
                 await OfficialLauncher.LaunchPlayerLinkAsync(protocol);
 
-            _dashboardLock = new Mutex(true, @"Local\EclipsedClient.Dashboard", out bool firstInstance);
+            _dashboardLock = new Mutex(true, @"Local\Solarious.Dashboard", out bool firstInstance);
             if (!firstInstance)
             {
                 Shutdown();
                 return;
             }
 
+            LocalData.Migrate();
             var window = new MainWindow();
             MainWindow = window;
             if (protocol is not null)
@@ -37,7 +38,7 @@ public partial class App : Application
         }
         catch (Exception error)
         {
-            MessageBox.Show(error.Message, "Eclipsed Client", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show(error.Message, "Solarious", MessageBoxButton.OK, MessageBoxImage.Warning);
             Shutdown(1);
         }
     }

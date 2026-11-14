@@ -1,47 +1,67 @@
-<UserControl x:Class="EclipsedClient.Views.SettingsView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <StackPanel Margin="28,25,28,28">
-        <TextBlock Text="Settings &amp; privacy" Style="{StaticResource Heading}" />
-        <TextBlock Text="Manage how Eclipsed Client runs and where it stores your data." Style="{StaticResource MutedText}" Margin="0,0,0,21" />
-        <Grid>
-            <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
-            <Border Style="{StaticResource Card}" Margin="0,0,15,0">
-                <StackPanel>
-                    <TextBlock Text="Roblox launch" Style="{StaticResource Section}" />
-                    <Border Style="{StaticResource Badge}" HorizontalAlignment="Left" Margin="0,9,0,13">
-                        <TextBlock Text="{Binding Mode}" Foreground="{StaticResource Lavender}" />
-                    </Border>
-                    <CheckBox Content="Use the system tray when minimizing or launching" IsChecked="{Binding MinimizeAfterLaunch}" />
-                    <CheckBox Content="Use Windows URI fallback if direct launch fails" IsChecked="{Binding AllowUriFallback}"
-                              ToolTip="Windows may route the link to another installed launcher." />
-                    <WrapPanel>
-                        <Button Content="Set as default" Command="{Binding Register}" Margin="0,0,7,6" />
-                        <Button Content="Restore previous handler" Command="{Binding Restore}" IsEnabled="{Binding Registered, Mode=OneWay}" Margin="0,0,0,6" />
-                    </WrapPanel>
-                </StackPanel>
-            </Border>
-            <Border Grid.Column="1" Style="{StaticResource Card}">
-                <StackPanel>
-                    <TextBlock Text="Data &amp; privacy" Style="{StaticResource Section}" />
-                    <TextBlock Text="Eclipsed Client uses no analytics, crash reporting, Roblox login, or cookies."
-                               Style="{StaticResource MutedText}" Margin="0,7,0,11" />
-                    <TextBlock Text="Launcher files" FontWeight="SemiBold" />
-                    <TextBlock Text="{Binding Storage}" Foreground="{StaticResource Lavender}" Margin="0,3,0,8" />
-                    <TextBlock Text="Screenshots" FontWeight="SemiBold" />
-                    <TextBlock Text="{Binding ScreenshotsPath}" Foreground="{StaticResource Lavender}" Margin="0,3,0,8" />
-                    <TextBlock Text="Charts, public lookups and friend presence use Roblox services. Discord presence and ping run when enabled or requested."
-                               Style="{StaticResource MutedText}" />
-                </StackPanel>
-            </Border>
-        </Grid>
-        <Border Style="{StaticResource Card}" Background="{StaticResource Spotlight}" Margin="0,15,0,0">
+<UserControl x:Class="EclipsedClient.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel>
+        <TextBlock Text="Settings" Style="{StaticResource Heading}" />
+
+        <Border Style="{StaticResource Card}" Margin="0,12,0,14">
             <StackPanel>
-                <TextBlock Text="{Binding Version}" Style="{StaticResource Section}" />
-                <TextBlock Text="Solarious is the first edition of Eclipsed Client, a privacy-first Roblox launcher and an independent MIT-licensed fork of Bloxstrap. Eclipsed Client is not affiliated with Roblox Corporation, Bloxstrap Labs, or Moonsworth."
-                           Style="{StaticResource MutedText}" Margin="0,8,0,5" />
+                <TextBlock Text="Privacy &amp; Local Data" Style="{StaticResource Section}" />
+                <TextBlock Text="Zero telemetry, zero ads, and no access to Roblox cookies or credentials."
+                           Style="{StaticResource MutedText}" Margin="0,6,0,14" />
+                <Border Style="{StaticResource SoftCard}" Padding="14">
+                    <StackPanel>
+                        <TextBlock Text="{Binding Storage}" Foreground="{StaticResource Amber}" Margin="0,0,0,8" />
+                        <ItemsControl ItemsSource="{Binding DataFiles}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource Badge}" Margin="0,0,6,6">
+                                        <TextBlock Text="{Binding}" FontFamily="Consolas" FontSize="12" />
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+                <TextBlock Text="Saved games, bookmarks, playtime, and cached charts are stored on this PC. Captures are read from the Roblox screenshots folder."
+                           Style="{StaticResource MutedText}" Margin="0,11,0,0" />
+                <TextBlock Text="Public charts and profile lookups contact Roblox. Rich Presence shares activity with Discord only when enabled."
+                           Style="{StaticResource MutedText}" Margin="0,5,0,14" />
+                <WrapPanel>
+                    <Button Content="Open Folder" Command="{Binding OpenData}" Margin="0,0,8,0" />
+                    <Button Content="Clear Local Data" Command="{Binding ClearData}" Style="{StaticResource DangerButton}" />
+                </WrapPanel>
+            </StackPanel>
+        </Border>
+
+        <Border Style="{StaticResource Card}" Margin="0,0,0,14">
+            <StackPanel>
+                <TextBlock Text="Roblox launch" Style="{StaticResource Section}" />
+                <TextBlock Text="{Binding Mode}" Foreground="{StaticResource Amber}" Margin="0,6,0,13" />
+                <CheckBox Content="Minimize to the system tray when launching Roblox" IsChecked="{Binding MinimizeAfterLaunch}" />
+                <CheckBox Content="Use the Windows link handler if direct launch fails" IsChecked="{Binding AllowUriFallback}"
+                          ToolTip="Windows may route the link to another installed launcher." />
+                <WrapPanel>
+                    <Button Content="Set as default" Command="{Binding Register}" Margin="0,0,8,0" />
+                    <Button Content="Restore previous handler" Command="{Binding Restore}" IsEnabled="{Binding Registered, Mode=OneWay}" />
+                </WrapPanel>
+            </StackPanel>
+        </Border>
+
+        <Border Style="{StaticResource Card}">
+            <StackPanel>
+                <DockPanel Margin="0,0,0,6">
+                    <TextBlock DockPanel.Dock="Right" Text="{Binding Version}" Foreground="{StaticResource Muted}" VerticalAlignment="Center" />
+                    <TextBlock Text="About" Style="{StaticResource Section}" />
+                </DockPanel>
+                <TextBlock Text="Solarious is an independent MIT-licensed fork of Bloxstrap. Solarious is unaffiliated with Roblox Corporation, Bloxstrap Labs, and Moonsworth."
+                           Style="{StaticResource MutedText}" />
                 <TextBlock Text="Copyright © 2022 pizzaboxer · Copyright © 2026 Eclipsed Client contributors"
-                           Style="{StaticResource MutedText}" Margin="0,0,0,13" />
-                <TextBlock Text="Development assistance by ChatGPT (OpenAI)."
-                           Style="{StaticResource MutedText}" Margin="0,0,0,13" />
+                           Style="{StaticResource MutedText}" Margin="0,5,0,0" />
+                <TextBlock Text="Development assistance by ChatGPT (OpenAI)." Style="{StaticResource MutedText}" Margin="0,5,0,13" />
                 <WrapPanel>
                     <Button Content="Licenses &amp; notices" Command="{Binding Notices}" Margin="0,0,8,0" />
                     <Button Content="GitHub releases" Command="{Binding Releases}" Margin="0,0,8,0" />

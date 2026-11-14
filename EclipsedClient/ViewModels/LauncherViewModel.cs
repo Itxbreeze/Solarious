@@ -34,7 +34,7 @@ internal sealed class ActionCommand(Func<object?, Task> run) : ICommand
     }
 }
 
-internal sealed record Navigation(string Label, ViewModel Page);
+internal sealed record Navigation(string Label, string Icon, ViewModel Page);
 
 internal sealed class LauncherViewModel : ViewModel, IDisposable
 {
@@ -154,13 +154,13 @@ internal sealed class LauncherViewModel : ViewModel, IDisposable
         Network = new(this);
         Settings = new(this);
         Pages = [
-            new("Home", Home),
-            new("Discover", new DiscoverViewModel(Home, Charts)),
-            new("Playtime", Analytics),
-            new("Captures", Gallery),
-            new("Discord", Discord),
-            new("Network", Network),
-            new("Settings", Settings)
+            new("Home", "\uE80F", Home),
+            new("Discover", "\uE774", new DiscoverViewModel(Home, Charts)),
+            new("Playtime", "\uE9D9", Analytics),
+            new("Captures", "\uEB9F", Gallery),
+            new("Discord", "\uE8BD", Discord),
+            new("Network", "\uE968", Network),
+            new("Settings", "\uE713", Settings)
         ];
         _selected = Pages[0];
         OpenDiscover = Action(_ => Selected = Pages.First(page => page.Page is DiscoverViewModel));
@@ -201,7 +201,7 @@ internal sealed class LauncherViewModel : ViewModel, IDisposable
         var now = DateTimeOffset.Now;
         try
         {
-            Charts.Tick(now);
+            if (Selected.Page is DiscoverViewModel) Charts.Tick(now);
             bool poll = now >= _nextPoll;
             if (poll)
             {

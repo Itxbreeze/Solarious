@@ -6,7 +6,7 @@ internal static class ProtocolRegistration
 {
     private const string ProtocolKey = @"Software\Classes\roblox-player";
     private const string CommandKey = ProtocolKey + @"\shell\open\command";
-    private const string BackupKey = @"Software\EclipsedClient\ProtocolBackup";
+    private const string BackupKey = @"Software\Solarious\ProtocolBackup";
     private static string Command => $"\"{Environment.ProcessPath}\" \"%1\"";
 
     internal static bool IsRegistered => ReadCurrentCommand() == Command;
@@ -19,8 +19,8 @@ internal static class ProtocolRegistration
 
     internal static void Register()
     {
-        if (!string.Equals(System.IO.Path.GetFileName(Environment.ProcessPath), "EclipsedClient.exe", StringComparison.OrdinalIgnoreCase))
-            throw new InvalidOperationException("Open EclipsedClient.exe from its permanent location first.");
+        if (!string.Equals(System.IO.Path.GetFileName(Environment.ProcessPath), "Solarious.exe", StringComparison.OrdinalIgnoreCase))
+            throw new InvalidOperationException("Open Solarious.exe from its permanent location first.");
 
         if (IsRegistered)
             return;

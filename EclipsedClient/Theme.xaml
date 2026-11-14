@@ -4,23 +4,23 @@
 <SolidColorBrush x:Key="Line" Color="#303746" />
 <SolidColorBrush x:Key="Text" Color="#F0F3FA" />
 <SolidColorBrush x:Key="Muted" Color="#A2ABBD" />
-<SolidColorBrush x:Key="Accent" Color="#84AFE7" />
-<SolidColorBrush x:Key="Hover" Color="#9AC2F7" />
-<SolidColorBrush x:Key="Lavender" Color="#A8C9FF" />
+<SolidColorBrush x:Key="Accent" Color="#D6AA70" />
+<SolidColorBrush x:Key="Hover" Color="#E2BA86" />
+<SolidColorBrush x:Key="Lavender" Color="#E1BD8F" />
 <SolidColorBrush x:Key="Amber" Color="#E7BF7D" />
 <BooleanToVisibilityConverter x:Key="BoolVisible" />
 <SolidColorBrush x:Key="Rail" Color="#171B24" />
 <SolidColorBrush x:Key="Inset" Color="#171B24" />
-<SolidColorBrush x:Key="AccentInk" Color="#102317" />
+<SolidColorBrush x:Key="AccentInk" Color="#23190F" />
 <SolidColorBrush x:Key="Success" Color="#A6DDBA" />
 <LinearGradientBrush x:Key="Spotlight" StartPoint="0,0" EndPoint="1,1">
-    <GradientStop Color="#252F41" Offset="0" />
-    <GradientStop Color="#1D2635" Offset=".58" />
-    <GradientStop Color="#171E29" Offset="1" />
+    <GradientStop Color="#2D2934" Offset="0" />
+    <GradientStop Color="#242430" Offset=".58" />
+    <GradientStop Color="#1A1D27" Offset="1" />
 </LinearGradientBrush>
 <LinearGradientBrush x:Key="LaunchGradient" StartPoint="0,0" EndPoint="1,1">
-    <GradientStop Color="#A4EBAF" Offset="0" />
-    <GradientStop Color="#76D493" Offset="1" />
+    <GradientStop Color="#E0B67D" Offset="0" />
+    <GradientStop Color="#CFA066" Offset="1" />
 </LinearGradientBrush>
 <Style TargetType="TextBlock"><Setter Property="Foreground" Value="{StaticResource Text}" />
 <Setter Property="TextWrapping" Value="Wrap" /></Style>
@@ -30,7 +30,7 @@
 <Style x:Key="Kicker" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}"><Setter Property="Foreground" Value="{StaticResource Lavender}" />
 <Setter Property="FontSize" Value="11" />
 <Setter Property="FontWeight" Value="Bold" /></Style>
-<Style x:Key="Heading" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}"><Setter Property="FontSize" Value="38" />
+<Style x:Key="Heading" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}"><Setter Property="FontSize" Value="32" />
 <Setter Property="FontWeight" Value="SemiBold" />
 <Setter Property="Margin" Value="0,0,0,8" /></Style>
 <Style x:Key="Section" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}"><Setter Property="FontSize" Value="21" />
@@ -56,18 +56,18 @@
 <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Button">
 <Border x:Name="Face" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="10" Padding="{TemplateBinding Padding}">
 <Grid>
-<Border x:Name="HoverLayer" Background="#C1DBFF" Opacity="0" CornerRadius="10" IsHitTestVisible="False" />
+<Border x:Name="HoverLayer" Background="#E6C79E" Opacity="0" CornerRadius="10" IsHitTestVisible="False" />
 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" TextElement.Foreground="{TemplateBinding Foreground}" />
 </Grid>
 </Border>
 <ControlTemplate.Triggers>
 <Trigger Property="IsMouseOver" Value="True">
-    <Setter TargetName="Face" Property="BorderBrush" Value="#7399CB" />
+    <Setter TargetName="Face" Property="BorderBrush" Value="#A98761" />
     <Trigger.EnterActions><BeginStoryboard><Storyboard>
-        <DoubleAnimation Storyboard.TargetName="HoverLayer" Storyboard.TargetProperty="Opacity" To=".09" Duration="0:0:.14" />
+        <DoubleAnimation Storyboard.TargetName="HoverLayer" Storyboard.TargetProperty="Opacity" To=".09" Duration="0:0:.12" />
     </Storyboard></BeginStoryboard></Trigger.EnterActions>
     <Trigger.ExitActions><BeginStoryboard><Storyboard>
-        <DoubleAnimation Storyboard.TargetName="HoverLayer" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.18" />
+        <DoubleAnimation Storyboard.TargetName="HoverLayer" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.12" />
     </Storyboard></BeginStoryboard></Trigger.ExitActions>
 </Trigger>
 <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Face" Property="BorderBrush" Value="{StaticResource Text}" /></Trigger>
@@ -77,9 +77,24 @@
 </ControlTemplate></Setter.Value></Setter></Style>
 <Style x:Key="Primary" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
 <Setter Property="Background" Value="{StaticResource LaunchGradient}" />
-<Setter Property="BorderBrush" Value="#8BE0A2" />
+<Setter Property="BorderBrush" Value="#CEA36C" />
 <Setter Property="Foreground" Value="{StaticResource AccentInk}" />
-<Style.Triggers><Trigger Property="IsMouseOver" Value="True"><Setter Property="Background" Value="#ABEEB6" /></Trigger></Style.Triggers>
+<Setter Property="ContentTemplate">
+    <Setter.Value>
+        <DataTemplate>
+            <TextBlock Text="{Binding}" Foreground="{StaticResource AccentInk}" />
+        </DataTemplate>
+    </Setter.Value>
+</Setter>
+<Style.Triggers><Trigger Property="IsMouseOver" Value="True"><Setter Property="Background" Value="#E7BF89" /></Trigger></Style.Triggers>
+</Style>
+<Style x:Key="ProfileButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+    <Setter Property="Background" Value="{StaticResource Panel}" />
+    <Setter Property="BorderBrush" Value="{StaticResource Line}" />
+    <Setter Property="Padding" Value="7" />
+</Style>
+<Style x:Key="DangerButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+    <Setter Property="Foreground" Value="#E4ACA4" />
 </Style>
 <Style x:Key="ChromeButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
 <Setter Property="Width" Value="44" />
@@ -102,8 +117,8 @@
         <ScrollViewer x:Name="PART_ContentHost" Focusable="False" />
     </Border>
     <ControlTemplate.Triggers>
-        <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Field" Property="BorderBrush" Value="#526A8C" /></Trigger>
-        <Trigger Property="IsKeyboardFocusWithin" Value="True"><Setter TargetName="Field" Property="BorderBrush" Value="#8CB8EF" /></Trigger>
+        <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Field" Property="BorderBrush" Value="#78654E" /></Trigger>
+        <Trigger Property="IsKeyboardFocusWithin" Value="True"><Setter TargetName="Field" Property="BorderBrush" Value="#D6AA70" /></Trigger>
         <Trigger Property="IsEnabled" Value="False"><Setter TargetName="Field" Property="Opacity" Value=".55" /></Trigger>
     </ControlTemplate.Triggers>
 </ControlTemplate></Setter.Value></Setter></Style>
@@ -115,8 +130,8 @@
             <Grid Background="Transparent">
                 <Grid.ColumnDefinitions><ColumnDefinition Width="36" /><ColumnDefinition /></Grid.ColumnDefinitions>
                 <Border x:Name="Track" Width="32" Height="18" HorizontalAlignment="Left" VerticalAlignment="Center"
-                        Background="#332B41" BorderBrush="#665474" BorderThickness="1" CornerRadius="9">
-                    <Ellipse x:Name="Knob" Fill="#C1B4CC" Width="12" Height="12" Margin="2,0"
+                        Background="#2B2932" BorderBrush="#544D5B" BorderThickness="1" CornerRadius="9">
+                    <Ellipse x:Name="Knob" Fill="#C2BBC6" Width="12" Height="12" Margin="2,0"
                              HorizontalAlignment="Left" VerticalAlignment="Center" />
                 </Border>
                 <ContentPresenter Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center"
@@ -124,8 +139,8 @@
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsChecked" Value="True">
-                    <Setter TargetName="Track" Property="Background" Value="#87D59E" />
-                    <Setter TargetName="Track" Property="BorderBrush" Value="#87D59E" />
+                    <Setter TargetName="Track" Property="Background" Value="#CFA066" />
+                    <Setter TargetName="Track" Property="BorderBrush" Value="#CFA066" />
                     <Setter TargetName="Knob" Property="Fill" Value="{StaticResource AccentInk}" />
                     <Setter TargetName="Knob" Property="HorizontalAlignment" Value="Right" />
                 </Trigger>
@@ -140,23 +155,37 @@
     </Setter.Value>
 </Setter>
 </Style>
-<Style x:Key="HeaderTab" TargetType="ListBoxItem">
+<Style x:Key="SidebarLink" TargetType="ListBoxItem">
     <Setter Property="Foreground" Value="{StaticResource Muted}" />
     <Setter Property="FontWeight" Value="SemiBold" />
     <Setter Property="Cursor" Value="Hand" />
     <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ListBoxItem">
-        <Grid x:Name="Tab" Background="Transparent">
-            <ContentPresenter Margin="16,0" VerticalAlignment="Center" TextElement.Foreground="{TemplateBinding Foreground}" />
-            <Border x:Name="Indicator" Height="3" CornerRadius="2,2,0,0" VerticalAlignment="Bottom"
-                    Margin="15,0,15,0" Background="{StaticResource Accent}" Visibility="Collapsed" />
-        </Grid>
+        <Border x:Name="Row" Background="Transparent" BorderBrush="Transparent" BorderThickness="1"
+                CornerRadius="12" Margin="0,0,0,4">
+            <Grid Height="39">
+                <Border x:Name="HoverFill" CornerRadius="11" Background="{StaticResource Panel}" Opacity="0" />
+                <Border x:Name="ActiveMark" Width="3" Height="17" CornerRadius="1.5" HorizontalAlignment="Left" Margin="2,0,0,0" Background="{StaticResource Accent}" Visibility="Collapsed" />
+                <ContentPresenter Margin="12,0" VerticalAlignment="Center" TextElement.Foreground="{TemplateBinding Foreground}" />
+            </Grid>
+        </Border>
         <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Tab" Property="Background" Value="{StaticResource Panel}" /></Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions><BeginStoryboard><Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="HoverFill" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.12" />
+                </Storyboard></BeginStoryboard></Trigger.EnterActions>
+                <Trigger.ExitActions><BeginStoryboard><Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="HoverFill" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.12" />
+                </Storyboard></BeginStoryboard></Trigger.ExitActions>
+            </Trigger>
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Foreground" Value="{StaticResource Text}" />
-                <Setter TargetName="Indicator" Property="Visibility" Value="Visible" />
+                <Setter TargetName="Row" Property="Background" Value="{StaticResource Panel}" />
+                <Setter TargetName="ActiveMark" Property="Visibility" Value="Visible" />
+                <Setter TargetName="Row" Property="BorderBrush" Value="{StaticResource Line}" />
             </Trigger>
-            <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Tab" Property="Background" Value="{StaticResource Panel}" /></Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter TargetName="Row" Property="BorderBrush" Value="{StaticResource Accent}" />
+            </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate></Setter.Value></Setter>
 </Style>
@@ -207,10 +236,31 @@
         </Trigger>
         <Trigger Property="IsMouseOver" Value="True">
             <Trigger.EnterActions><BeginStoryboard><Storyboard>
-                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" To="-2" Duration="0:0:.14" />
+                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" To="-2" Duration="0:0:.12" />
             </Storyboard></BeginStoryboard></Trigger.EnterActions>
             <Trigger.ExitActions><BeginStoryboard><Storyboard>
-                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" To="0" Duration="0:0:.14" />
+                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" To="0" Duration="0:0:.12" />
+            </Storyboard></BeginStoryboard></Trigger.ExitActions>
+        </Trigger>
+    </Style.Triggers>
+</Style>
+<Style x:Key="HoverPlay" TargetType="Button" BasedOn="{StaticResource Primary}">
+    <Setter Property="Opacity" Value=".58" />
+    <Style.Triggers>
+        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Border, AncestorLevel=1}}" Value="True">
+            <DataTrigger.EnterActions><BeginStoryboard><Storyboard>
+                <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.12" />
+            </Storyboard></BeginStoryboard></DataTrigger.EnterActions>
+            <DataTrigger.ExitActions><BeginStoryboard><Storyboard>
+                <DoubleAnimation Storyboard.TargetProperty="Opacity" To=".58" Duration="0:0:.12" />
+            </Storyboard></BeginStoryboard></DataTrigger.ExitActions>
+        </DataTrigger>
+        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+            <Trigger.EnterActions><BeginStoryboard><Storyboard>
+                <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.12" />
+            </Storyboard></BeginStoryboard></Trigger.EnterActions>
+            <Trigger.ExitActions><BeginStoryboard><Storyboard>
+                <DoubleAnimation Storyboard.TargetProperty="Opacity" To=".58" Duration="0:0:.12" />
             </Storyboard></BeginStoryboard></Trigger.ExitActions>
         </Trigger>
     </Style.Triggers>

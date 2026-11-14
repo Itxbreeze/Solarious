@@ -6,7 +6,56 @@ namespace EclipsedClient.Services;
 internal static class LocalData
 {
     internal static string DirectoryPath { get; } =
-        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "EclipsedClient");
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Solarious");
+
+    internal static IReadOnlyList<string> Files { get; } =
+        Array.AsReadOnly(new[] { "profiles.json", "stats.json", "launcher.json", "settings.json", "charts.json" });
+
+    private static bool _cleared;
+
+    internal static void Migrate()
+    {
+        if (Directory.Exists(DirectoryPath)) return;
+
+        string previous = Path.Combine(Path.GetDirectoryName(DirectoryPath)!, "EclipsedClient");
+        if (!Directory.Exists(previous)) return;
+
+        string staging = DirectoryPath + ".migration-" + Guid.NewGuid().ToString("N");
+        Directory.CreateDirectory(staging);
+        try
+        {
+            foreach (string name in Files)
+            {
+                string source = Path.Combine(previous, name);
+                if (File.Exists(source)) File.Copy(source, Path.Combine(staging, name));
+            }
+            Directory.Move(staging, DirectoryPath);
+        }
+        finally
+        {
+            if (Directory.Exists(staging))
+            {
+                foreach (string name in Files) File.Delete(Path.Combine(staging, name));
+                Directory.Delete(staging);
+            }
+        }
+    }
+
+    internal static void Clear()
+    {
+        // Retain the directory so the previous edition cannot be imported again.
+        Directory.CreateDirectory(DirectoryPath);
+        if (File.GetAttributes(DirectoryPath).HasFlag(FileAttributes.ReparsePoint))
+            throw new IOException("Solarious cannot clear files through a redirected data folder.");
+
+        foreach (string name in Files)
+        {
+            string path = Path.Combine(DirectoryPath, name);
+            File.Delete(path);
+            File.Delete(path + ".tmp");
+        }
+        _cleared = true;
+    }
 
     private static readonly JsonSerializerOptions Json = new(JsonSerializerDefaults.Web) { WriteIndented = true };
 
@@ -20,6 +69,7 @@ internal static class LocalData
 
     internal static void Save<T>(string name, T value)
     {
+        if (_cleared) return;
         Directory.CreateDirectory(DirectoryPath);
         string path = Path.Combine(DirectoryPath, name);
         string temp = path + ".tmp";
@@ -33,7 +83,7 @@ internal static class LocalData
 }
 
 internal sealed record Favorite(long PlaceId, string Title, string Notes, string Accent, byte[]? Icon = null, bool Pinned = false);
-internal sealed record LauncherPreferences(bool MinimizeAfterLaunch = false, bool AllowUriFallback = false, string Backdrop = "earthrise")
+internal sealed record LauncherPreferences(bool MinimizeAfterLaunch = false, bool AllowUriFallback = false, string Backdrop = "solar-corona")
 {
     public LauncherPreferences() : this(false) { }
 }
@@ -51,6 +101,6 @@ internal sealed record PresenceSettings
     public string Username { get; init; } = "";
     public bool HideGame { get; init; } = true;
     public bool ShowTimer { get; init; } = true;
-    public string TopText { get; init; } = "Playing via Eclipsed Client";
+    public string TopText { get; init; } = "Playing via Solarious";
     public string BottomText { get; init; } = "{game}";
 }

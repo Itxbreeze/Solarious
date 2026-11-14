@@ -22,9 +22,9 @@ internal sealed class TrayController : IDisposable
         using var resource = Application.GetResourceStream(new Uri("Assets/Solarious.ico", UriKind.Relative)).Stream;
         using var loaded = new System.Drawing.Icon(resource);
         _icon = (System.Drawing.Icon)loaded.Clone();
-        _menu.Items.Add("Open Eclipsed Client Solarious", null, (_, _) => window.Dispatcher.Invoke(Restore));
+        _menu.Items.Add("Open Solarious", null, (_, _) => window.Dispatcher.Invoke(Restore));
         _menu.Items.Add("Exit", null, (_, _) => window.Dispatcher.Invoke(window.Close));
-        _tray = new Forms.NotifyIcon { Text = "Eclipsed Client Solarious", Icon = _icon, ContextMenuStrip = _menu };
+        _tray = new Forms.NotifyIcon { Text = "Solarious", Icon = _icon, ContextMenuStrip = _menu };
         _tray.DoubleClick += (_, _) => window.Dispatcher.Invoke(Restore);
         _startupTimeout = new DispatcherTimer { Interval = TimeSpan.FromSeconds(45) };
         _startupTimeout.Tick += (_, _) =>
