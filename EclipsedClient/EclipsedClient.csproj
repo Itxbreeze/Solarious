@@ -7,16 +7,16 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>EclipsedClient</AssemblyName>
-    <Product>Eclipsed Client</Product>
-    <Description>Independent Windows launcher for the official Roblox player</Description>
+    <Product>Eclipsed Client Solarious</Product>
+    <Description>Privacy-first Windows launcher for the official Roblox player</Description>
     <Copyright>Copyright © 2022 pizzaboxer and © 2026 Eclipsed Client contributors</Copyright>
-    <ApplicationIcon>..\Images\assets\EclipsedClient.ico</ApplicationIcon>
+    <ApplicationIcon>..\Images\assets\Solarious.ico</ApplicationIcon>
     <Version>1.0.0</Version>
     <DebugType>embedded</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <Resource Include="..\Images\assets\EclipsedClient.ico" Link="Assets\EclipsedClient.ico" />
-    <Resource Include="..\Images\assets\eclipse-moon-textured.png" Link="Assets\eclipse-moon-textured.png" />
+    <Resource Include="..\Images\assets\Solarious.ico" Link="Assets\Solarious.ico" />
+    <Resource Include="..\Images\assets\solarious.png" Link="Assets\solarious.png" />
     <Resource Include="..\Images\assets\earthrise.jpg" Link="Assets\earthrise.jpg" />
     <Resource Include="..\Images\assets\solar-corona.jpg" Link="Assets\solar-corona.jpg" />
     <Resource Include="..\Images\assets\hadley-apennine.jpg" Link="Assets\hadley-apennine.jpg" />

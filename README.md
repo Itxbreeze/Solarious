@@ -1,12 +1,12 @@
-# Eclipsed Client
+# Eclipsed Client Solarious
 
-<img src="Images/assets/eclipse-moon-textured.png" alt="Cratered eclipse moon" width="96">
+<img src="Images/assets/solarious.png" alt="Solarious eclipse logo" width="128">
 
-Eclipsed Client is a portable Windows x64 launcher for the official Roblox desktop player. It combines public Roblox charts, a saved game library, and a NASA-themed Home screen in a single desktop app.
+**The privacy-first Roblox launcher.** Solarious is the first edition of Eclipsed Client, with more editions planned. It is a portable Windows x64 launcher for the official Roblox desktop player, with public charts, a saved game library, and NASA imagery.
 
 ## Download, extract, and run
 
-1. Download **EclipsedClient-Portable.zip** from [GitHub Releases](https://github.com/Itxbreeze/EclipsedClient/releases) when a release is available.
+1. Download **EclipsedClient-Portable.zip** from [GitHub Releases](https://github.com/Itxbreeze/Eclipsed-Client-Solarious/releases) when a release is available.
 2. Extract the ZIP and keep the files in the **EclipsedClient** folder together.
 3. Open **EclipsedClient.exe**. The package includes the .NET runtime.
 4. Install the [official Roblox desktop player](https://www.roblox.com/download) separately if you need it.
@@ -32,8 +32,8 @@ Eclipsed Client is a portable Windows x64 launcher for the official Roblox deskt
 Install the Windows .NET 10 SDK, then run these commands in PowerShell.
 
 ```powershell
-git clone --recurse-submodules https://github.com/Itxbreeze/EclipsedClient.git
-cd EclipsedClient
+git clone --recurse-submodules https://github.com/Itxbreeze/Eclipsed-Client-Solarious.git
+cd Eclipsed-Client-Solarious
 ./build-portable.ps1
 ```
 

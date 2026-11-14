@@ -98,7 +98,7 @@ internal sealed class SettingsViewModel : ViewModel
             ProtocolRegistration.Restore();
             Notify(string.Empty);
         });
-        Releases = shell.Action(_ => OfficialLauncher.OpenWeb(new Uri("https://github.com/Itxbreeze/EclipsedClient/releases")));
+        Releases = shell.Action(_ => OfficialLauncher.OpenWeb(new Uri("https://github.com/Itxbreeze/Eclipsed-Client-Solarious/releases")));
         Source = shell.Action(_ => OfficialLauncher.OpenWeb(new Uri("https://github.com/bloxstraplabs/bloxstrap")));
         Notices = shell.Action(_ =>
         {

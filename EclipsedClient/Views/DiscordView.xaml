@@ -10,7 +10,7 @@
                         <TextBlock Text="{Binding PreviewStatus}" Style="{StaticResource Kicker}" />
                         <DockPanel Margin="0,18,0,0">
                             <Border DockPanel.Dock="Left" Width="57" Height="57" CornerRadius="14" Background="#403153" Margin="0,0,13,0">
-                                <Image Source="{StaticResource EclipseMoon}" Width="32" Height="32" />
+                                <Image Source="/Assets/solarious.png" Width="32" Height="32" />
                             </Border>
                             <StackPanel VerticalAlignment="Center">
                                 <TextBlock Text="Eclipsed Client" FontWeight="SemiBold" FontSize="17" />

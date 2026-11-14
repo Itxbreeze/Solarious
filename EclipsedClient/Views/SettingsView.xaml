@@ -36,7 +36,7 @@
         <Border Style="{StaticResource Card}" Background="{StaticResource Spotlight}" Margin="0,15,0,0">
             <StackPanel>
                 <TextBlock Text="{Binding Version}" Style="{StaticResource Section}" />
-                <TextBlock Text="Eclipsed Client is an independent MIT-licensed fork of Bloxstrap. It is not affiliated with Roblox Corporation, Bloxstrap Labs, or Moonsworth."
+                <TextBlock Text="Solarious is the first edition of Eclipsed Client, a privacy-first Roblox launcher and an independent MIT-licensed fork of Bloxstrap. Eclipsed Client is not affiliated with Roblox Corporation, Bloxstrap Labs, or Moonsworth."
                            Style="{StaticResource MutedText}" Margin="0,8,0,5" />
                 <TextBlock Text="Copyright © 2022 pizzaboxer · Copyright © 2026 Eclipsed Client contributors"
                            Style="{StaticResource MutedText}" Margin="0,0,0,13" />
